@@ -4,7 +4,7 @@ author: "Manye Dong"
 date: "2023-09-14"
 output: github_document
 ---
-```{r message==FALSE}
+```{r message=FALSE, results='hide'}
 library(moderndive)
 library(tidyverse)
 ```
@@ -82,7 +82,7 @@ factor_mean
 Taking the mean for random sample vector and logical vector worked, but did not work for character and factor vectors.
 
 Now, we convert the character and factor variable type:
-```{r echo==FALSE}
+```{r results='hide'}
 char_numeric = as.numeric(char_vec)
 char_numeric
 
