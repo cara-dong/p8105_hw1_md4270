@@ -4,7 +4,7 @@ author: "Manye Dong"
 date: "2023-09-14"
 output: github_document
 ---
-```{r message=FALSE}
+```{r message==FALSE}
 library(moderndive)
 library(tidyverse)
 ```
@@ -17,4 +17,80 @@ data("early_january_weather")
 ```{r view the dataset }
 early_january_weather
 ```
+```{r}
+nrow(early_january_weather)
+```
 
+The variables in this dataset include important variables such as year and month indicating the data is about weather from January 2013. There are also temp(temperature at the start of each hour), humid(humidity in percentage), and visib(visibility) and time_hour (the time that the temperature is recorded). 
+
+It has 15 columns and 358 rows. The mean temperature is `r mean(early_january_weather$temp)` degree Fahrenheit.
+
+```{r scatterplot}
+ggplot(early_january_weather, aes(x=time_hour, y=temp, color = humid)) + geom_point()
+```
+The patterns that are apparent in this plot: Firstly, it seems to be more humid with higher temperature. Secondly, the humidity increases in oscillation from the beginning of January to the end (it becomes more humid as time progresses).
+
+```{r save the scatterplot}
+ggsave("humid_scatter.png")
+```
+
+
+## Problem 2
+```{r random sample vec}
+# a random sample of size 10 from a standard Normal distribution
+rand_samp = rnorm(10)
+```
+```{r logical vec}
+# a logical vector indicating whether elements of the sample are greater than 0
+logical = rand_samp > 0
+```
+```{r character vec}
+# a character vector of length 10
+char_vec = vector("character", 10)
+```
+```{r factor vec}
+# a factor vector of length 10, with 3 different factor “levels”
+levels = c("Level1", "Level2", "Level3")
+factor_vec = factor(rep(levels, length.out=10))
+```
+```{r create a df from them}
+df = tibble(random_sample = rand_samp, 
+            logical_vector = logical,  
+            char_vector = char_vec, 
+            factor_vector = factor_vec)
+df
+```
+
+Taking the mean of each variable:
+```{r taking mean}
+# mean for random numbers vector
+random_mean = mean(pull(df, random_sample))
+random_mean
+
+# mean for logical vector
+logical_mean = mean(pull(df, logical_vector))
+logical_mean
+
+# mean for character vector
+char_mean = mean(pull(df, char_vector))
+char_mean
+
+# mean for factor vector
+factor_mean = mean(pull(df, factor_vector))
+factor_mean
+```
+Taking the mean for random sample vector and logical vector worked, but did not work for character and factor vectors.
+
+Now, we convert the character and factor variable type:
+```{r echo==FALSE}
+char_numeric = as.numeric(char_vec)
+char_numeric
+
+factor_numeric = as.numeric(factor_vec)
+factor_numeric
+```
+
+The character vector turns all into "NA" and the factor vector becomes the level they represent, as in numbers from 1 to 3.
+The character vectors is all "NA" because characters/strings cannot be converted to numbers anyhow. This helps explains why we cannot calculate the mean for the character vector. 
+
+- why does 
