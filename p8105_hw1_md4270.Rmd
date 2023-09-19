@@ -92,5 +92,3 @@ factor_numeric
 
 The character vector turns all into "NA" and the factor vector becomes the level they represent, as in numbers from 1 to 3.
 The character vectors is all "NA" because characters/strings cannot be converted to numbers anyhow. This helps explains why we cannot calculate the mean for the character vector. 
-
-- why does 
